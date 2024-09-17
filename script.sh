@@ -80,7 +80,7 @@ reviewdog -f=rdjson \
   -filter-mode="${INPUT_FILTER_MODE}" \
   -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
   -level="${INPUT_LEVEL}" \
-  ${REVIEWDOG_FLAGS} < "$RDTMP/bandit_rdjson.json"
+  ${REVIEWDOG_FLAGS} <"$RDTMP/bandit_rdjson.json"
 
 reviewdog_rc=$?
 
