@@ -3,7 +3,6 @@ set -euo pipefail
 
 # Helper functions
 install_tool() {
-  local name="$1"
   local install_cmd="$2"
   local check_cmd="$3"
   local install_msg="$4"
@@ -50,7 +49,7 @@ bandit --version
 # Prepare bandit arguments
 BANDIT_ARGS=()
 [ -n "${INPUT_BANDIT_CONFIG:-}" ] && BANDIT_ARGS+=(-c "${INPUT_BANDIT_CONFIG}")
-[ -n "${INPUT_BANDIT_FLAGS:-}" ] && BANDIT_ARGS+=($INPUT_BANDIT_FLAGS)
+[ -n "${INPUT_BANDIT_FLAGS:-}" ] && BANDIT_ARGS+=("${INPUT_BANDIT_FLAGS}")
 
 # Create temporary directory and set trap for cleanup
 RDTMP=$(mktemp -d)
