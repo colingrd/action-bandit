@@ -1,5 +1,5 @@
-name: 'Run bandit with reviewdog'
-description: '🐶 Run bandit with reviewdog on pull requests to improve code review experience.'
+name: 'action-bandit'
+description: 'Run bandit with reviewdog on pull requests to improve code review experience.'
 author: "Bruno Fonseca (https://github.com/brunohaf)"
 inputs:
   github_token:
