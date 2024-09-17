@@ -59,7 +59,7 @@ trap cleanup EXIT
 # Run bandit and convert output
 set -x
 bandit "${BANDIT_ARGS[@]}" -f json -o "$RDTMP/bandit.json" -r . --exit-zero
-python3 "${BASE_PATH}/bandit_to_rdjson/rd_converter.py" < "$RDTMP/bandit.json" > "$RDTMP/bandit_rdjson.json"
+python3 "${BASE_PATH}/bandit_to_rdjson/rd_converter.py" <"$RDTMP/bandit.json" >"$RDTMP/bandit_rdjson.json"
 
 # Configure reviewdog flags
 REVIEWDOG_FLAGS="${INPUT_BANDIT_FLAGS:-}"
