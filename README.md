@@ -1,21 +1,16 @@
-# action-composite-template
+# Bandit Reviewdog Action
 
-<!-- TODO: replace reviewdog/action-composite-template with your repo name -->
-[![Test](https://github.com/reviewdog/action-composite-template/workflows/Test/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3ATest)
-[![reviewdog](https://github.com/reviewdog/action-composite-template/workflows/reviewdog/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Areviewdog)
-[![depup](https://github.com/reviewdog/action-composite-template/workflows/depup/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Adepup)
-[![release](https://github.com/reviewdog/action-composite-template/workflows/release/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/reviewdog/action-composite-template?logo=github&sort=semver)](https://github.com/reviewdog/action-composite-template/releases)
+[![Test](https://github.com/brunohaf/action-bandit-pvd/workflows/Test/badge.svg)](https://github.com/brunohaf/action-bandit-pvd/actions?query=workflow%3ATest)
+[![reviewdog](https://github.com/brunohaf/action-bandit-pvd/workflows/reviewdog/badge.svg)](https://github.com/brunohaf/action-bandit-pvd/actions?query=workflow%3Areviewdog)
+[![depup](https://github.com/brunohaf/action-bandit-pvd/workflows/depup/badge.svg)](https://github.com/brunohaf/action-bandit-pvd/actions?query=workflow%3Adepup)
+[![release](https://github.com/brunohaf/action-bandit-pvd/workflows/release/badge.svg)](https://github.com/brunohaf/action-bandit-pvd/actions?query=workflow%3Arelease)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/brunohaf/action-bandit-pvd?logo=github&sort=semver)](https://github.com/brunohaf/action-bandit-pvd/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
 ![github-pr-review demo](https://user-images.githubusercontent.com/3797062/73162963-4b8e2b00-4132-11ea-9a3f-f9c6f624c79f.png)
 ![github-pr-check demo](https://user-images.githubusercontent.com/3797062/73163032-70829e00-4132-11ea-8481-f213a37db354.png)
 
-<!-- TODO: outline your action here -->
-This is a template repository for
-[reviewdog](https://github.com/reviewdog/reviewdog) action with release
-automation based on [action composition](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action).
-Click `Use this template` button to create your reviewdog action :dog:!
+This action runs [Bandit](https://github.com/PyCQA/bandit), a security linter for Python code, and integrates with [reviewdog](https://github.com/reviewdog/reviewdog) to provide inline comments on pull requests. It is built using action composition for release automation.
 
 If you want to create your own reviewdog action from scratch without using this
 template, please check and copy release automation flow.
@@ -26,64 +21,62 @@ This repo contains a sample action to run [misspell](https://github.com/client9/
 
 ## Input
 
-<!-- TODO: replace `<linter-name>` with yours -->
 ```yaml
 inputs:
   github_token:
-    description: 'GITHUB_TOKEN'
-    default: '${{ github.token }}'
+    description: "GITHUB_TOKEN"
+    default: "${{ github.token }}"
   workdir:
-    description: 'Working directory relative to the root directory.'
-    default: '.'
+    description: "Working directory relative to the root directory."
+    default: "."
+  bandit_config:
+    description: "Path to Bandit configuration file."
+    default: "pyproject.toml"
+  bandit_flags:
+    description: "Additional flags for Bandit."
+    default: ""
+  verbose:
+    description: "Enable verbose mode."
+    default: "false"
   ### Flags for reviewdog ###
   tool_name:
-    description: 'Tool name to use for reviewdog reporter.'
-    default: '<linter-name>'
+    description: "Tool name to use for reviewdog reporter."
+    default: "bandit"
   level:
-    description: 'Report level for reviewdog [info,warning,error].'
-    default: 'error'
+    description: "Report level for reviewdog [info,warning,error]."
+    default: "error"
   reporter:
-    description: 'Reporter of reviewdog command [github-check,github-pr-review,github-pr-check].'
-    default: 'github-check'
+    description: "Reporter for reviewdog [github-check,github-pr-review,github-pr-check]."
+    default: "github-check"
   filter_mode:
-    description: |
-      Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
-      Default is added.
-    default: 'added'
+    description: "Filtering mode for reviewdog [added,diff_context,file,nofilter]."
+    default: "added"
   fail_on_error:
-    description: |
-      Exit code for reviewdog when errors are found [true,false].
-      Default is `false`.
-    default: 'false'
+    description: "Exit code for reviewdog when errors are found [true,false]."
+    default: "false"
   reviewdog_flags:
-    description: 'Additional reviewdog flags.'
-    default: ''
-  ### Flags for <linter-name> ###
-  locale:
-    description: '-locale flag of misspell. (US/UK)'
-    default: ''
+    description: "Additional reviewdog flags."
+    default: ""
 ```
 
 ## Usage
-<!-- TODO: replace reviewdog/action-composite-template with your repo name -->
 
 ```yaml
-name: reviewdog
+name: Run Bandit
 on: [pull_request]
 jobs:
-  # TODO: replace `linter_name` and `<linter-name>` with yours
-  linter_name:
-    name: runner / <linter-name>
+  bandit:
+    name: Bandit Security Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: reviewdog/action-composite-template@v1
+      - uses: brunohaf/action-bandit-pvd@v1
         with:
           github_token: ${{ secrets.github_token }}
-          # Change reviewdog reporter if you need [github-check,github-pr-review,github-pr-check].
+          # Change reviewdog reporter if needed [github-check,github-pr-review,github-pr-check]
           reporter: github-pr-review
-          # Change reporter level if you need.
-          # GitHub Status Check won't become failure with warning.
+          # Change reporter level if needed
+          # GitHub Status Check won't become a failure with warning level
           level: warning
 ```
 
@@ -92,8 +85,8 @@ jobs:
 ### Release
 
 #### [haya14busa/action-bumpr](https://github.com/haya14busa/action-bumpr)
-You can bump version on merging Pull Requests with specific labels (bump:major,bump:minor,bump:patch).
-Pushing tag manually by yourself also work.
+
+This action updates major/minor release tags on a tag push. For example, it updates the v1 and v1.2 tags when v1.2.3 is released.
 
 #### [haya14busa/action-update-semver](https://github.com/haya14busa/action-update-semver)
 
@@ -105,7 +98,7 @@ ref: https://help.github.com/en/articles/about-actions#versioning-your-action
 This reviewdog action itself is integrated with reviewdog to run lints
 which is useful for [action composition] based actions.
 
-[action composition]:https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+[action composition]: https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
 
 ![reviewdog integration](https://user-images.githubusercontent.com/3797062/72735107-7fbb9600-3bde-11ea-8087-12af76e7ee6f.png)
 
@@ -118,6 +111,7 @@ Supported linters:
 - [reviewdog/action-alex](https://github.com/reviewdog/action-alex)
 
 ### Dependencies Update Automation
+
 This repository uses [reviewdog/action-depup](https://github.com/reviewdog/action-depup) to update
 reviewdog version.
 
