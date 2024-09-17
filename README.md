@@ -1,10 +1,10 @@
 # Bandit Reviewdog Action
 
-[![Test](https://github.com/brunohaf/action-bandit-pvd/workflows/Test/badge.svg)](https://github.com/brunohaf/action-bandit-pvd/actions?query=workflow%3ATest)
-[![reviewdog](https://github.com/brunohaf/action-bandit-pvd/workflows/reviewdog/badge.svg)](https://github.com/brunohaf/action-bandit-pvd/actions?query=workflow%3Areviewdog)
-[![depup](https://github.com/brunohaf/action-bandit-pvd/workflows/depup/badge.svg)](https://github.com/brunohaf/action-bandit-pvd/actions?query=workflow%3Adepup)
-[![release](https://github.com/brunohaf/action-bandit-pvd/workflows/release/badge.svg)](https://github.com/brunohaf/action-bandit-pvd/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/brunohaf/action-bandit-pvd?logo=github&sort=semver)](https://github.com/brunohaf/action-bandit-pvd/releases)
+[![Test](https://github.com/brunohaf/action-bandit/workflows/Test/badge.svg)](https://github.com/brunohaf/action-bandit/actions?query=workflow%3ATest)
+[![reviewdog](https://github.com/brunohaf/action-bandit/workflows/reviewdog/badge.svg)](https://github.com/brunohaf/action-bandit/actions?query=workflow%3Areviewdog)
+[![depup](https://github.com/brunohaf/action-bandit/workflows/depup/badge.svg)](https://github.com/brunohaf/action-bandit/actions?query=workflow%3Adepup)
+[![release](https://github.com/brunohaf/action-bandit/workflows/release/badge.svg)](https://github.com/brunohaf/action-bandit/actions?query=workflow%3Arelease)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/brunohaf/action-bandit?logo=github&sort=semver)](https://github.com/brunohaf/action-bandit/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
 ![github-pr-review demo](https://user-images.githubusercontent.com/3797062/73162963-4b8e2b00-4132-11ea-9a3f-f9c6f624c79f.png)
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: brunohaf/action-bandit-pvd@v1
+      - uses: brunohaf/action-bandit@v1
         with:
           github_token: ${{ secrets.github_token }}
           # Change reviewdog reporter if needed [github-check,github-pr-review,github-pr-check]
