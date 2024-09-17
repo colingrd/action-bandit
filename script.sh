@@ -8,7 +8,7 @@ install_tool() {
   local check_cmd="$3"
   local install_msg="$4"
 
-  if ! command -v "${check_cmd}" &> /dev/null; then
+  if ! command -v "${check_cmd}" &>/dev/null; then
     echo "::group::${install_msg}"
     eval "${install_cmd}"
     echo '::endgroup::'
