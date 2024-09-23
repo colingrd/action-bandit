@@ -41,7 +41,7 @@ curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.s
 echo '::endgroup::'
 
 # Install bandit if not already installed
-install_tool "bandit" "python -m pip install --upgrade bandit &> /dev/null" "bandit" "🐶 Installing bandit ..."
+install_tool "bandit" "python -m pip install --upgrade bandit[toml] &> /dev/null" "bandit" "🐶 Installing bandit ..."
 
 echo "[action-bandit] bandit version:"
 bandit --version
