@@ -1,7 +1,7 @@
-<h1 align="center" style="margin-bottom: 0.3em;">
-  <img src="docs/action-bandit-plain-logo.png" alt="Bandit Reviewdog Action Logo" style="width: 127px; height: 100px; object-fit: contain; display: block; margin: 0 auto;">
-  action-bandit
-</h1>
+<div align="center">
+  <img src="docs/action-bandit-plain-logo.png" alt="Bandit Reviewdog Action Logo" style="width: 30%; height: 30%;">
+  <h1>action-bandit</h1>
+</div>
 
 
 <h3 align="center" style="margin-top: 0; font-weight: 400;">
@@ -90,9 +90,9 @@ jobs:
           level: warning
 ```
 
----
+<br>
+
 > *Refer to the [this workflow](https://github.com/brunohaf/action-bandit/blob/main/.github/workflows/test.yml) for more usage examples.*
----
 
 
 ### Screenshots
