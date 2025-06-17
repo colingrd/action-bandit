@@ -114,8 +114,9 @@ jobs:
 ## Related
 
 * [reviewdog](https://github.com/reviewdog/reviewdog) — Integrates linter results with GitHub code reviews.
-* [Bandit](https://github.com/PyCQA/bandit) — Static security analysis for Python code.
+* [Bandit](https://github.com/PyCQA/bandit) — Python static security analyzer by PyCQA.
 * [Public reviewdog GitHub Actions](https://github.com/reviewdog/reviewdog?tab=readme-ov-file#public-reviewdog-github-actions) — List of related GitHub Actions.
+* [Bandit GitHub Action by PyCQA](https://github.com/PyCQA/bandit-action) — The official GitHub Action for running Bandit, maintained by PyCQA.
 
 ## Credits
 
