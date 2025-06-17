@@ -1,9 +1,8 @@
 <h1 align="center" style="margin-bottom: 0.3em;">
-  <div style="width: 80px; height: 80px; border-radius: 50%; border: 4px solid #333; margin: 0 auto 0.5em; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-    <img src="docs/action-bandit-logo.png" alt="Bandit Reviewdog Action Logo" style="width: 50%; height: 100%; object-fit: cover;">
-  </div>
-  Bandit Reviewdog Action
+  <img src="docs/action-bandit-plain-logo.png" alt="Bandit Reviewdog Action Logo" style="width: 127px; height: 100px; object-fit: contain; display: block; margin: 0 auto;">
+  action-bandit
 </h1>
+
 
 <h3 align="center" style="margin-top: 0; font-weight: 400;">
   A GitHub Action that runs <a href="https://github.com/PyCQA/bandit" target="_blank" rel="noopener noreferrer">Bandit</a> — a security linter for Python — and reports issues directly on pull requests using <a href="https://github.com/reviewdog/reviewdog" target="_blank" rel="noopener noreferrer">reviewdog</a>.
