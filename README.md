@@ -1,69 +1,82 @@
-# Bandit Reviewdog Action
+<div align="center">
+  <img src="docs/action-bandit-plain-logo.png" alt="Bandit Reviewdog Action Logo" style="width: 30%; height: 30%;">
+  <h1>action-bandit</h1>
+</div>
 
-[![Test](https://github.com/brunohaf/action-bandit/workflows/Test/badge.svg)](https://github.com/brunohaf/action-bandit/actions?query=workflow%3ATest)
-[![reviewdog](https://github.com/brunohaf/action-bandit/workflows/reviewdog/badge.svg)](https://github.com/brunohaf/action-bandit/actions?query=workflow%3Areviewdog)
-[![depup](https://github.com/brunohaf/action-bandit/workflows/depup/badge.svg)](https://github.com/brunohaf/action-bandit/actions?query=workflow%3Adepup)
-[![release](https://github.com/brunohaf/action-bandit/workflows/release/badge.svg)](https://github.com/brunohaf/action-bandit/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/brunohaf/action-bandit?logo=github&sort=semver)](https://github.com/brunohaf/action-bandit/releases)
-[![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
 
-![github-pr-review demo](https://user-images.githubusercontent.com/3797062/73162963-4b8e2b00-4132-11ea-9a3f-f9c6f624c79f.png)
-![github-pr-check demo](https://user-images.githubusercontent.com/3797062/73163032-70829e00-4132-11ea-8481-f213a37db354.png)
+<h3 align="center" style="margin-top: 0; font-weight: 400;">
+  A GitHub Action that runs <a href="https://github.com/PyCQA/bandit" target="_blank" rel="noopener noreferrer">Bandit</a> — a security linter for Python — and reports issues directly on pull requests using <a href="https://github.com/reviewdog/reviewdog" target="_blank" rel="noopener noreferrer">reviewdog</a>.
+</h3>
 
-This action runs [Bandit](https://github.com/PyCQA/bandit), a security linter for Python code, and integrates with [reviewdog](https://github.com/reviewdog/reviewdog) to provide inline comments on pull requests. It is built using action composition for release automation.
+<div align="center" style="font-style: italic">
+  Designed for automated, inline security feedback during code review, combining Bandit's static analysis with reviewdog's flexible reporting workflows.
+</div>
 
-If you want to create your own reviewdog action from scratch without using this
-template, please check and copy release automation flow.
-It's important to manage release workflow and sync reviewdog version for all
-reviewdog actions.
+<br>
 
-This repo contains a sample action to run [misspell](https://github.com/client9/misspell).
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/github/v/release/brunohaf/action-bandit?logo=github&sort=semver" alt="Latest Release"></a>
+  <a href="#"><img src="https://github.com/brunohaf/action-bandit/workflows/Test/badge.svg" alt="Test Workflow"></a>
+  <a href="#"><img src="https://github.com/brunohaf/action-bandit/workflows/reviewdog/badge.svg" alt="reviewdog Workflow"></a>
+  <a href="#"><img src="https://github.com/brunohaf/action-bandit/workflows/depup/badge.svg" alt="depup Workflow"></a>
+  <a href="#"><img src="https://github.com/brunohaf/action-bandit/workflows/release/badge.svg" alt="release Workflow"></a>
+  <a href="https://github.com/haya14busa/action-bumpr"><img src="https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github" alt="action-bumpr supported"></a>
+</p>
 
-## Input
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#related">Related</a> •
+  <a href="#credits">Credits</a> •
+  <a href="#license">License</a>
+</p>
 
-```yaml
-inputs:
-  github_token:
-    description: "GITHUB_TOKEN"
-    default: "${{ github.token }}"
-  workdir:
-    description: "Working directory relative to the root directory."
-    default: "."
-  bandit_config:
-    description: "Path to Bandit configuration file."
-    default: "pyproject.toml"
-  bandit_flags:
-    description: "Additional flags for Bandit."
-    default: ""
-  verbose:
-    description: "Enable verbose mode."
-    default: "false"
-  ### Flags for reviewdog ###
-  tool_name:
-    description: "Tool name to use for reviewdog reporter."
-    default: "bandit"
-  level:
-    description: "Report level for reviewdog [info,warning,error]."
-    default: "error"
-  reporter:
-    description: "Reporter for reviewdog [github-check,github-pr-review,github-pr-check]."
-    default: "github-check"
-  filter_mode:
-    description: "Filtering mode for reviewdog [added,diff_context,file,nofilter]."
-    default: "added"
-  fail_on_error:
-    description: "Exit code for reviewdog when errors are found [true,false]."
-    default: "false"
-  reviewdog_flags:
-    description: "Additional reviewdog flags."
-    default: ""
-```
+## Key Features
+
+* **Automated Python Security Scanning** — Uses [Bandit](https://github.com/PyCQA/bandit) to statically analyze Python code and detect common security issues before they reach production.
+* **Actionable Feedback in Pull Requests** — Surfaces issues early in the review process, allowing developers to address them before merging. Frees human reviewers to focus on architecture and complex logic—not repetitive static checks.
+* **Flexible Reporting with [reviewdog](https://github.com/reviewdog/reviewdog)** — Choose how results are reported to fit your workflow:
+
+  * **Inline PR Comments** — Adds comments directly to affected lines for contextual feedback.
+  * **GitHub Checks** — Pair with required [Github Checks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks#checks) to enforce security gates on pull requests. .
+  * **Commit Status + Checks** — Reports as both [commit statuses and GitHub Checks](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks#types-of-status-checks-on-github) for complete CI feedback.
+* **Targeted Analysis with Filtering** — Analyze only changed files in PRs using `filter_mode`, reducing noise and improving relevance.
+* **Configurable** — Supports `pyproject.toml` or Bandit configuration files for analysis settings, and [reviewdog’s options](https://github.com/reviewdog/reviewdog?tab=readme-ov-file) for tuning output and behavior.
+* **Debugging and Troubleshooting** — Enable `verbose: true` for detailed logs and use [reviewdog’s debugging flags](https://github.com/reviewdog/reviewdog?tab=readme-ov-file#debugging) for in-depth diagnostics.
+
+<br>
+
+---
+
+> *This action [installs and runs reviewdog locally](https://github.com/reviewdog/reviewdog?tab=readme-ov-file#option-2-install-reviewdog-github-apps) in the GitHub Actions runner using `GITHUB_TOKEN` for authentication. All analysis and reporting happens within the runner. For stronger isolation and control, use self-hosted runners.*
+
+---
+<br>
 
 ## Usage
+
+### Inputs
+
+| Input             | Description                                                           | Default               |
+| ----------------- | --------------------------------------------------------------------- | --------------------- |
+| `github_token`    | GitHub Token for API access                                           | `${{ github.token }}` |
+| `workdir`         | Directory relative to root to run Bandit                              | `.`                   |
+| `bandit_config`   | Path to Bandit configuration file                                     | `pyproject.toml`      |
+| `bandit_flags`    | Extra Bandit CLI flags                                                | `""`                  |
+| `verbose`         | Enable verbose logging                                                | `false`               |
+| `tool_name`       | Tool name used in reviewdog output                                    | `bandit`              |
+| `level`           | Report level (`info`, `warning`, `error`)                             | `error`               |
+| `reporter`        | Reporter type (`github-check`, `github-pr-review`, `github-pr-check`) | `github-check`        |
+| `filter_mode`     | Filtering mode (`added`, `diff_context`, `file`, `nofilter`)          | `added`               |
+| `fail_on_error`   | Whether to fail the build when errors are found                       | `false`               |
+| `reviewdog_flags` | Additional flags for reviewdog                                        | `""`                  |
+
+### Configuration Example
 
 ```yaml
 name: Run Bandit
 on: [pull_request]
+
 jobs:
   bandit:
     name: Bandit Security Check
@@ -73,46 +86,43 @@ jobs:
       - uses: brunohaf/action-bandit@v1
         with:
           github_token: ${{ secrets.github_token }}
-          # Change reviewdog reporter if needed [github-check,github-pr-review,github-pr-check]
           reporter: github-pr-review
-          # Change reporter level if needed
-          # GitHub Status Check won't become a failure with warning level
           level: warning
 ```
 
-## Development
+<br>
 
-### Release
+> *Refer to the [this workflow](https://github.com/brunohaf/action-bandit/blob/main/.github/workflows/test.yml) for more usage examples.*
 
-#### [haya14busa/action-bumpr](https://github.com/haya14busa/action-bumpr)
 
-This action updates major/minor release tags on a tag push. For example, it updates the v1 and v1.2 tags when v1.2.3 is released.
+### Screenshots
 
-#### [haya14busa/action-update-semver](https://github.com/haya14busa/action-update-semver)
+**PR Review (github-pr-review)**  
+<div>
+  <img src="https://user-images.githubusercontent.com/3797062/73162963-4b8e2b00-4132-11ea-9a3f-f9c6f624c79f.png" alt="PR Review Example" width="600"/><br>
+</div>
+<br>
 
-This action updates major/minor release tags on a tag push. e.g. Update v1 and v1.2 tag when released v1.2.3.
-ref: https://help.github.com/en/articles/about-actions#versioning-your-action
+**Check Run (github-check)**  
+<div>
+  <img src="https://user-images.githubusercontent.com/3797062/73163032-70829e00-4132-11ea-8481-f213a37db354.png" alt="Check Example" width="600"/>
+</div>
+<br>
 
-### Lint - reviewdog integration
+> *Source: <a href="https://github.com/reviewdog/action-composite-template/blob/main/README.md">reviewdog/action-composite-template</a>*
 
-This reviewdog action itself is integrated with reviewdog to run lints
-which is useful for [action composition] based actions.
+## Related
 
-[action composition]: https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+* [reviewdog](https://github.com/reviewdog/reviewdog) — Integrates linter results with GitHub code reviews.
+* [Bandit](https://github.com/PyCQA/bandit) — Static security analysis for Python code.
+* [Public reviewdog GitHub Actions](https://github.com/reviewdog/reviewdog?tab=readme-ov-file#public-reviewdog-github-actions) — List of related GitHub Actions.
 
-![reviewdog integration](https://user-images.githubusercontent.com/3797062/72735107-7fbb9600-3bde-11ea-8087-12af76e7ee6f.png)
+## Credits
 
-Supported linters:
 
-- [reviewdog/action-shellcheck](https://github.com/reviewdog/action-shellcheck)
-- [reviewdog/action-shfmt](https://github.com/reviewdog/action-shfmt)
-- [reviewdog/action-actionlint](https://github.com/reviewdog/action-actionlint)
-- [reviewdog/action-misspell](https://github.com/reviewdog/action-misspell)
-- [reviewdog/action-alex](https://github.com/reviewdog/action-alex)
+* Bootstrapped with [reviewdog/action-composite-template](https://github.com/reviewdog/action-composite-template).
+* Based on [reviewdog/action-eslint](https://github.com/reviewdog/action-eslint), with additional inspiration from [jordemort/action-pyright](https://github.com/jordemort/action-pyright).
 
-### Dependencies Update Automation
+## License
 
-This repository uses [reviewdog/action-depup](https://github.com/reviewdog/action-depup) to update
-reviewdog version.
-
-![reviewdog depup demo](https://user-images.githubusercontent.com/3797062/73154254-170e7500-411a-11ea-8211-912e9de7c936.png)
+[MIT](LICENSE)
