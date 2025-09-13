@@ -30,11 +30,11 @@ inputs:
   filter_mode:
     description: Filtering mode for the reviewdog command [added,diff_context,file,nofilter]
     default: ''
-  fail_on_error:
+  fail_level:
     description: |
-      Exit code for reviewdog when errors are found [true,false].
-      Default is `false`.
-    default: 'false'
+      Fail the action if there is at least one issue equal or above this level [any, info,warning,error].
+      Default is `error`.
+    default: 'error'
   reviewdog_flags:
     description: 'Additional reviewdog flags.'
     default: ''
@@ -54,7 +54,7 @@ runs:
         INPUT_LEVEL: ${{ inputs.level }}
         INPUT_REPORTER: ${{ inputs.reporter }}
         INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
-        INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
+        INPUT_FAIL_LEVEL: ${{ inputs.fail_level }}
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
         INPUT_BANDIT_FLAGS: ${{ inputs.bandit_flags }}
         INPUT_VERBOSE: ${{ inputs.verbose }}
