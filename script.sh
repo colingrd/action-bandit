@@ -77,7 +77,7 @@ reviewdog -f=rdjson \
   -name="${INPUT_TOOL_NAME}" \
   -reporter="${INPUT_REPORTER:-github-pr-review}" \
   -filter-mode="${INPUT_FILTER_MODE}" \
-  -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
+  -fail-level="${INPUT_FAIL_LEVEL}" \
   -level="${INPUT_LEVEL}" \
   "${REVIEWDOG_FLAGS}" <"$RDTMP/bandit_rdjson.json"
 
