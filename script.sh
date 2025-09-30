@@ -48,7 +48,14 @@ bandit --version
 
 # Prepare bandit arguments
 BANDIT_ARGS=()
-[ -n "${INPUT_BANDIT_CONFIG:-}" ] && BANDIT_ARGS+=(-c "${INPUT_BANDIT_CONFIG}")
+
+DEFAULT_BANDIT_CONFIG="${BASE_PATH}/bandit.yml"
+if [ -n "${INPUT_BANDIT_CONFIG:-}" ]; then
+  BANDIT_ARGS+=(-c "${INPUT_BANDIT_CONFIG}")
+elif [ -f "${DEFAULT_BANDIT_CONFIG}" ]; then
+  BANDIT_ARGS+=(-c "${DEFAULT_BANDIT_CONFIG}")
+fi
+
 [ -n "${INPUT_BANDIT_FLAGS:-}" ] && BANDIT_ARGS+=("${INPUT_BANDIT_FLAGS}")
 
 # Create temporary directory and set trap for cleanup

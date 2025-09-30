@@ -1,0 +1,4 @@
+# Default Bandit configuration for action-bandit
+# Skip assert_used findings in any files under the tests directory.
+assert_used:
+  skips: ["*/test_*.py"]
